@@ -1,0 +1,265 @@
+/* =========================================
+   基礎變數與字體設定
+   ========================================= */
+:root {
+    --primary: #ff9a9e;
+    --secondary: #fecfef;
+    --accent: #a0c4ff;
+    --text-dark: #2c3e50;
+    --text-light: #666;
+    --font-heading: 'Varela Round', sans-serif;
+    --font-body: 'Nunito', 'Microsoft JhengHei', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .logo { font-family: var(--font-heading); }
+
+/* =========================================
+   玻璃透視導覽列 (Glassmorphism Navbar)
+   ========================================= */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 40px; position: sticky; top: 0; z-index: 1000;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.logo { font-size: 1.6rem; font-weight: 900; color: var(--primary); letter-spacing: 1px; }
+
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a {
+    text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 1.1rem;
+    padding: 8px 16px; border-radius: 20px; transition: all 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active {
+    background: var(--primary); color: #fff;
+    box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
+}
+
+/* =========================================
+   首頁：複雜背景與佈局
+   ========================================= */
+.home-body {
+    background: linear-gradient(135deg, #fff6f7 0%, #f0f7ff 100%);
+    min-height: 100vh; display: flex; flex-direction: column;
+}
+
+/* 漂浮光暈背景 */
+.bg-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+.orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: floatOrb 10s infinite alternate; }
+.orb-1 { width: 400px; height: 400px; background: #ffd6d3; top: -10%; left: -10%; }
+.orb-2 { width: 500px; height: 500px; background: #cce3ff; bottom: -20%; right: -10%; animation-delay: -5s; }
+.orb-3 { width: 300px; height: 300px; background: #d4f5b8; top: 40%; left: 40%; animation-delay: -2s; }
+
+@keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.1); }
+}
+
+/* Hero 區塊 */
+.hero-full {
+    text-align: center; padding: 80px 20px 40px; position: relative; z-index: 1;
+}
+.hero-full h1 {
+    font-size: 3.5rem; margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff7b81, #a0c4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 20px rgba(255, 154, 158, 0.2);
+}
+.hero-full p { font-size: 1.3rem; color: var(--text-light); margin-bottom: 40px; font-weight: 600; }
+
+/* 按鈕升級 */
+.cta-btn {
+    background: linear-gradient(135deg, #ff9a9e, #ff7b81);
+    color: white; border: none; padding: 16px 40px; font-size: 1.2rem;
+    border-radius: 50px; cursor: pointer; font-weight: 900; letter-spacing: 1px;
+    box-shadow: 0 10px 25px rgba(255, 123, 129, 0.4); transition: all 0.3s ease;
+    font-family: var(--font-heading);
+}
+.cta-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 30px rgba(255, 123, 129, 0.6); }
+
+.pulse-animation { animation: pulse 2s infinite; }
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 123, 129, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 123, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 123, 129, 0); }
+}
+
+/* =========================================
+   3D 複雜動物卡片
+   ========================================= */
+.home-gallery { flex: 1; padding: 40px; max-width: 1200px; margin: 0 auto; width: 100%; z-index: 1; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; justify-items: center; }
+
+.gallery-item {
+    width: 100%; max-width: 260px; aspect-ratio: 1 / 1; cursor: pointer;
+    perspective: 1000px;
+}
+
+.item-inner {
+    width: 100%; height: 100%; border-radius: 40px; padding: 25px;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.08),
+        inset 0 -10px 20px rgba(255,255,255,0.5),
+        inset 0 10px 20px rgba(255,255,255,0.8);
+    border: 4px solid #fff;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    animation: floatAnimal 4s ease-in-out infinite;
+}
+
+/* 錯開動畫時間 */
+.float-delay-1 .item-inner { animation-delay: 0s; }
+.float-delay-2 .item-inner { animation-delay: 1s; }
+.float-delay-3 .item-inner { animation-delay: 2s; }
+
+@keyframes floatAnimal {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* 不同背景色系 */
+.bg-pink { background: linear-gradient(135deg, #fff 0%, #ffe4e6 100%); }
+.bg-yellow { background: linear-gradient(135deg, #fff 0%, #fff3c4 100%); }
+.bg-blue { background: linear-gradient(135deg, #fff 0%, #dbeafe 100%); }
+.bg-green { background: linear-gradient(135deg, #fff 0%, #dcfce7 100%); }
+.bg-purple { background: linear-gradient(135deg, #fff 0%, #f3e8ff 100%); }
+.bg-orange { background: linear-gradient(135deg, #fff 0%, #ffedd5 100%); }
+
+.gallery-item:hover .item-inner {
+    transform: translateY(-20px) scale(1.05) rotate(3deg);
+    box-shadow: 
+        0 30px 60px rgba(0,0,0,0.15),
+        inset 0 -10px 20px rgba(255,255,255,0.5),
+        inset 0 10px 20px rgba(255,255,255,1);
+    border-color: var(--primary);
+    animation-play-state: paused;
+}
+
+.gallery-svg { width: 100%; height: 100%; max-width: 180px; transition: transform 0.4s ease; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1)); }
+.gallery-item:hover .gallery-svg { transform: scale(1.15); }
+
+/* =========================================
+   產品頁 (動物圖鑑) 升級版
+   ========================================= */
+.products-page {
+    text-align: center; padding: 60px 20px;
+    background-color: #fdfbfb;
+    background-image: 
+        radial-gradient(#ffd6d3 2px, transparent 2px), 
+        radial-gradient(#cce3ff 2px, transparent 2px);
+    background-size: 60px 60px; background-position: 0 0, 30px 30px;
+    min-height: 80vh;
+}
+.products-page h1 { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+.animal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; max-width: 900px; margin: 50px auto; }
+
+.animal-card {
+    background: rgba(255, 255, 255, 0.9); padding: 30px 20px; border-radius: 30px;
+    cursor: pointer; transition: all 0.4s ease; border: 3px solid transparent;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    backdrop-filter: blur(10px);
+}
+.animal-card:hover {
+    transform: translateY(-10px); border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(255, 154, 158, 0.2);
+    background: #fff;
+}
+.animal-svg { width: 120px; height: 120px; margin: 0 auto 15px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1)); }
+.animal-card:hover .animal-svg { transform: scale(1.2) rotate(5deg); }
+.animal-card h3 { color: var(--text-dark); font-size: 1.3rem; }
+
+/* 動態資訊顯示區 */
+.info-display {
+    background: #fff; max-width: 800px; margin: 0 auto; padding: 50px;
+    border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    min-height: 250px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; line-height: 1.9; border: 4px dashed var(--secondary);
+    transition: all 0.4s ease;
+}
+.info-display h2 { font-size: 2.2rem; margin-bottom: 10px; }
+.info-display p { color: var(--text-light); text-align: justify; }
+
+/* =========================================
+   聯絡我們頁面：升級版
+   ========================================= */
+.contact-body {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    min-height: 100vh; position: relative; overflow-x: hidden;
+}
+.contact-page { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 60px 20px 100px; }
+.contact-header { text-align: center; margin-bottom: 60px; }
+.contact-header h1 { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
+.contact-header p { font-size: 1.2rem; color: var(--text-light); }
+
+.helpers-gallery {
+    display: flex; gap: 30px; overflow-x: auto; padding: 20px 10px 40px;
+    scroll-snap-type: x mandatory;
+}
+.helpers-gallery::-webkit-scrollbar { height: 12px; }
+.helpers-gallery::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
+.helpers-gallery::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; border: 3px solid #fff; }
+
+.helper-card {
+    flex: 0 0 250px; scroll-snap-align: center; background: #fff;
+    border-radius: 30px; padding: 30px 20px; text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08); transition: all 0.4s ease;
+}
+.helper-card:hover { transform: translateY(-15px); box-shadow: 0 25px 50px rgba(255, 154, 158, 0.25); }
+.helper-svg { width: 140px; height: 140px; margin-bottom: 20px; transition: transform 0.3s; }
+.helper-card:hover .helper-svg { transform: scale(1.15) rotate(-5deg); }
+.helper-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+.helper-card p { color: var(--text-light); font-size: 1rem; }
+
+/* 表單設計 */
+.contact-form-wrapper {
+    background: #fff; max-width: 800px; margin: 0 auto; padding: 50px;
+    border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+.contact-form-wrapper h2 { text-align: center; color: var(--primary); font-size: 2rem; margin-bottom: 30px; }
+.form-row { display: flex; gap: 30px; margin-bottom: 25px; }
+.form-group { flex: 1; }
+.form-group label { display: block; margin-bottom: 10px; font-weight: 700; color: var(--text-dark); }
+.form-group input, .form-group textarea {
+    width: 100%; padding: 18px; border: 2px solid #eee; border-radius: 15px;
+    font-family: var(--font-body); font-size: 1rem; transition: all 0.3s; background: #f9f9f9;
+}
+.form-group input:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--primary); background: #fff;
+    box-shadow: 0 0 20px rgba(255, 154, 158, 0.15);
+}
+.contact-form .cta-btn { width: 100%; border-radius: 15px; margin-top: 10px; }
+
+/* 彈窗與 Footer */
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); }
+.modal-content { background: #fff; margin: 15% auto; padding: 50px; border-radius: 30px; width: 90%; max-width: 500px; text-align: center; position: relative; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes popIn { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+.close-btn { position: absolute; top: 20px; right: 30px; font-size: 30px; cursor: pointer; color: #aaa; }
+.close-btn:hover { color: var(--primary); }
+.modal-ok-btn { margin-top: 20px; padding: 12px 30px; background: var(--primary); color: white; border: none; border-radius: 20px; font-size: 1.1rem; cursor: pointer; font-weight: bold; font-family: var(--font-heading); }
+
+footer { text-align: center; padding: 30px; color: var(--text-light); margin-top: 50px; }
+
+/* 響應式 */
+@media (max-width: 768px) {
+    .hero-full h1 { font-size: 2.2rem; }
+    .navbar { flex-direction: column; gap: 15px; padding: 15px; }
+    .form-row { flex-direction: column; gap: 15px; }
+    .gallery-grid { grid-template-columns: 1fr; }
+}
