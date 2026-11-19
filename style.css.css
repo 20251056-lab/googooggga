@@ -1,0 +1,27 @@
+/* 升級後的資訊顯示區 (適合長篇文章閱讀) */
+.info-display {
+    background: #fff;
+    max-width: 700px; /* 稍微加寬 */
+    margin: 0 auto;
+    padding: 35px; /* 加大內邊距 */
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    min-height: 200px; /* 增加最小高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    line-height: 1.8; /* 增加行距，更好閱讀 */
+    border: 4px dashed var(--secondary-color);
+    transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.info-display h2 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.info-display p {
+    color: #444;
+    text-align: justify; /* 文字左右對齊，看起來更整齊 */
+}
